@@ -52,8 +52,8 @@ public class GuiOrderTableRow extends GuiTableRow {
 		super(templete.sizeY, templete.rowSize, new String[templete.rowSize.length]);
 		if(!(order instanceof GetPositionOrder || order instanceof SettlePositionOrder)) throw new IllegalArgumentException();
 		this.order = Objects.requireNonNull(order);
-		this.getPositionFields = templete.getPositionFields;
-		this.settlePositionFields = templete.settlePositionFields;
+		getPositionFields = templete.getPositionFields;
+		settlePositionFields = templete.settlePositionFields;
 		if(getPositionFields.length != fieldCount || settlePositionFields.length != fieldCount) throw new IllegalArgumentException();
 	}
 

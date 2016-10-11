@@ -13,7 +13,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -42,7 +41,7 @@ public class ItemJentlemensPanz extends ItemArmor implements IToolTipUser {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot) {
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
 		ModelJentleArmor armorModel = ClientProxy.modelJentlemensCap;
 		if(armorModel != null){
 			armorModel.bipedHead.showModel = false;
@@ -53,26 +52,12 @@ public class ItemJentlemensPanz extends ItemArmor implements IToolTipUser {
 			armorModel.bipedRightLeg.showModel = true;
 			armorModel.bipedLeftLeg.showModel = true;
 
-			armorModel.isSneak = entityLiving.isSneaking();
-			armorModel.isRiding = entityLiving.isRiding();
-			armorModel.isChild = entityLiving.isChild();
-
-			armorModel.heldItemRight = 0;
-			armorModel.aimedBow = false;
-
-			EntityPlayer player = (EntityPlayer) entityLiving;
-			ItemStack held_item = player.getEquipmentInSlot(0);
-			if(held_item != null){
-				armorModel.heldItemRight = 1;
-				if(player.getItemInUseCount() > 0){
-					EnumAction enumaction = held_item.getItemUseAction();
-					if(enumaction == EnumAction.BOW){
-						armorModel.aimedBow = true;
-					}else if(enumaction == EnumAction.BLOCK){
-						armorModel.heldItemRight = 3;
-					}
-				}
-			}
+			armorModel.isSneak = _default.isSneak;
+			armorModel.isRiding = _default.isRiding;
+			armorModel.isChild = _default.isChild;
+			armorModel.leftArmPose = _default.leftArmPose;
+			armorModel.rightArmPose = _default.rightArmPose;
+			armorModel.swingProgress = _default.swingProgress;
 		}
 		return armorModel;
 	}

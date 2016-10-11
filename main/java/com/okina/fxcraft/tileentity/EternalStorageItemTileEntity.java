@@ -1,5 +1,7 @@
 package com.okina.fxcraft.tileentity;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
 import com.okina.fxcraft.client.IHUDBlock;
 import com.okina.fxcraft.utils.ColoredString;
@@ -8,6 +10,7 @@ import com.okina.fxcraft.utils.RenderingHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -91,23 +94,25 @@ public class EternalStorageItemTileEntity extends TileEntity implements IInvento
 		return 64;
 	}
 
+	@Override
 	public ItemStack getStackInSlot(int index) {
 		return inventory[index];
 	}
 
+	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		if(this.inventory[index] != null){
-			if(this.inventory[index].stackSize <= count){
-				ItemStack itemstack1 = this.inventory[index];
-				this.inventory[index] = null;
-				this.markDirty();
+		if(inventory[index] != null){
+			if(inventory[index].stackSize <= count){
+				ItemStack itemstack1 = inventory[index];
+				inventory[index] = null;
+				markDirty();
 				return itemstack1;
 			}else{
-				ItemStack itemstack = this.inventory[index].splitStack(count);
-				if(this.inventory[index].stackSize == 0){
-					this.inventory[index] = null;
+				ItemStack itemstack = inventory[index].splitStack(count);
+				if(inventory[index].stackSize == 0){
+					inventory[index] = null;
 				}
-				this.markDirty();
+				markDirty();
 				return itemstack;
 			}
 		}else{
@@ -115,42 +120,44 @@ public class EternalStorageItemTileEntity extends TileEntity implements IInvento
 		}
 	}
 
+	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		if(this.inventory[index] != null){
-			ItemStack itemstack = this.inventory[index];
-			this.inventory[index] = null;
+		if(inventory[index] != null){
+			ItemStack itemstack = inventory[index];
+			inventory[index] = null;
 			return itemstack;
 		}else{
 			return null;
 		}
 	}
 
+	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		if(item == null){
-			this.inventory[index] = stack;
-			if(stack != null && stack.stackSize > this.getInventoryStackLimit()){
-				stack.stackSize = this.getInventoryStackLimit();
+			inventory[index] = stack;
+			if(stack != null && stack.stackSize > getInventoryStackLimit()){
+				stack.stackSize = getInventoryStackLimit();
 			}
 			item = stack;
 		}else{
 			if(item.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(item, stack)){
-				this.inventory[index] = stack;
-				if(stack != null && stack.stackSize > this.getInventoryStackLimit()){
-					stack.stackSize = this.getInventoryStackLimit();
+				inventory[index] = stack;
+				if(stack != null && stack.stackSize > getInventoryStackLimit()){
+					stack.stackSize = getInventoryStackLimit();
 				}
 			}
 		}
-		this.markDirty();
+		markDirty();
 	}
 
 	@Override
 	public void clear() {
-		for (int i = 0; i < this.inventory.length; ++i){
-			this.inventory[i] = null;
+		for (int i = 0; i < inventory.length; ++i){
+			inventory[i] = null;
 		}
 		item = null;
 		itemCount = InfinitInteger.ZERO;
-		this.markDirty();
+		markDirty();
 	}
 
 	//	@Override
@@ -272,7 +279,12 @@ public class EternalStorageItemTileEntity extends TileEntity implements IInvento
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		worldObj.markBlockForUpdate(pos);
+		List<EntityPlayer> list = getWorld().playerEntities;
+		for (EntityPlayer player : list){
+			if(player instanceof EntityPlayerMP){
+				((EntityPlayerMP) player).connection.sendPacket(getUpdatePacket());
+			}
+		}
 	}
 
 	@Override

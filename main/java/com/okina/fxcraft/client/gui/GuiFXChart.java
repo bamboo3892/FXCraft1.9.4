@@ -206,15 +206,15 @@ public class GuiFXChart extends GuiButton {
 	public static void drawLines(List<VertexCoord> vertexList, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer vertexBuffer = tessellator.getBuffer();
-		float f3 = (color >> 24 & 255) / 255.0F;
-		float f = (color >> 16 & 255) / 255.0F;
-		float f1 = (color >> 8 & 255) / 255.0F;
-		float f2 = (color & 255) / 255.0F;
+		float a = (color >> 24 & 255) / 255.0F;
+		float r = (color >> 16 & 255) / 255.0F;
+		float g = (color >> 8 & 255) / 255.0F;
+		float b = (color & 255) / 255.0F;
 		GlStateManager.pushAttrib();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-		GlStateManager.color(f, f1, f2, f3);
+		GlStateManager.color(r, g, b, a);
 		//		GL11.glEnable(GL11.GL_BLEND);
 		//		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		//		OpenGlHelper.glBlendFunc(770, 771, 1, 0);

@@ -22,7 +22,7 @@ public class SettlePositionOrder implements Cloneable {
 
 	public SettlePositionOrder(Calendar date, FXPosition position, double limits) {
 		this.position = Objects.requireNonNull(position);
-		this.contractDate = date;
+		contractDate = date;
 		this.limits = limits;
 	}
 

@@ -37,7 +37,7 @@ public class GuiIconLabel extends GuiButton implements ITipComponent {
 		isItem = true;
 		this.item = item;
 		this.renderItem = renderItem;
-		this.tips = item.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+		tips = item.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 	}
 
 	@Override

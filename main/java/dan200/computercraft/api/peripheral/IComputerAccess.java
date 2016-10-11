@@ -14,8 +14,7 @@ import dan200.computercraft.api.filesystem.IWritableMount;
  * that they can call. This should not be implemented by your classes. Do not interact
  * with computers except via this interface.
  */
-public interface IComputerAccess
-{
+public interface IComputerAccess {
 	/**
 	 * Mount a mount onto the computers' file system in a read only mode.<br>
 	 * @param desiredLocation The location on the computercraft's file system where you would like the mount to be mounted.
@@ -27,12 +26,12 @@ public interface IComputerAccess
 	 * @see #unmount(String)
 	 * @see dan200.computercraft.api.filesystem.IMount
 	 */
-	public String mount( String desiredLocation, IMount mount );
+	public String mount(String desiredLocation, IMount mount);
 
-    /**
-     * TODO: Document me
-     */
-    public String mount( String desiredLocation, IMount mount, String driveName );
+	/**
+	 * TODO: Document me
+	 */
+	public String mount(String desiredLocation, IMount mount, String driveName);
 
 	/**
 	 * Mount a mount onto the computers' file system in a writable mode.<br>
@@ -45,12 +44,12 @@ public interface IComputerAccess
 	 * @see #unmount(String)
 	 * @see IMount
 	 */
-	public String mountWritable( String desiredLocation, IWritableMount mount );
+	public String mountWritable(String desiredLocation, IWritableMount mount);
 
-    /**
-     * TODO: Document me
-     */
-    public String mountWritable( String desiredLocation, IWritableMount mount, String driveName );
+	/**
+	 * TODO: Document me
+	 */
+	public String mountWritable(String desiredLocation, IWritableMount mount, String driveName);
 
 	/**
 	 * Unmounts a directory previously mounted onto the computers file system by mount() or mountWritable().<br>
@@ -63,15 +62,15 @@ public interface IComputerAccess
 	 * @see	#mount(String, IMount)
 	 * @see	#mountWritable(String, IWritableMount)
 	 */
-	public void unmount( String location );
-	
+	public void unmount(String location);
+
 	/**
 	 * Returns the numerical ID of this computercraft.<br>
 	 * This is the same number obtained by calling os.getComputerID() or running the "id" program from lua,
 	 * and is guarunteed unique. This number will be positive.
 	 * @return	The identifier.
 	 */
-	public int getID();	
+	public int getID();
 
 	/**
 	 * Causes an event to be raised on this computercraft, which the computercraft can respond to by calling
@@ -79,7 +78,7 @@ public interface IComputerAccess
 	 * this peripheral.
 	 * @param event		A string identifying the type of event that has occurred, this will be
 	 *					returned as the first value from os.pullEvent(). It is recommended that you
-	 *					you choose a name that is unique, and recognisable as originating from your 
+	 *					you choose a name that is unique, and recognisable as originating from your
 	 *					peripheral. eg: If your peripheral type is "button", a suitable event would be
 	 *					"button_pressed".
 	 * @param arguments	In addition to a name, you may pass an array of extra arguments to the event, that will
@@ -88,7 +87,7 @@ public interface IComputerAccess
 	 *					You may supply null to indicate that no arguments are to be supplied.
 	 * @see dan200.computercraft.api.peripheral.IPeripheral#callMethod
 	 */
-	public void queueEvent( String event, Object[] arguments );
+	public void queueEvent(String event, Object[] arguments);
 
 	/**
 	 * Get a string, unique to the computercraft, by which the computercraft refers to this peripheral.

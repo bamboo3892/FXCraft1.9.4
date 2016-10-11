@@ -49,7 +49,7 @@ public class BlockFXDealer extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(!worldIn.isRemote) playerIn.openGui(FXCraft.instance, FXCraft.BLOCK_GUI_ID_0, worldIn, pos.getX(), pos.getY(), pos.getZ());
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+		return true;
 	}
 
 	@Override

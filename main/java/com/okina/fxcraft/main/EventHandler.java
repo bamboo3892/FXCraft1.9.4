@@ -3,17 +3,20 @@ package com.okina.fxcraft.main;
 import static com.okina.fxcraft.main.FXCraft.*;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import com.okina.fxcraft.account.AccountHandler;
 import com.okina.fxcraft.account.AccountInfo;
 import com.okina.fxcraft.client.IHUDArmor;
 import com.okina.fxcraft.client.IHUDBlock;
+import com.okina.fxcraft.client.IHUDItem;
 import com.okina.fxcraft.client.IToolTipUser;
 import com.okina.fxcraft.item.ItemCapitalistGuard;
 import com.okina.fxcraft.main.CommonProxy.PopUpMessage;
 import com.okina.fxcraft.utils.UtilMethods;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,6 +27,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -149,6 +153,16 @@ public class EventHandler {
 							pastRenderedArmor[i] = armor;
 							renderTicksArmor[i] = mc.theWorld.getTotalWorldTime() % 72000 + event.renderTickTime;
 						}
+					}else if(armor != null && armor.getItem() instanceof IHUDItem){
+						IHUDItem hud = (IHUDItem) armor.getItem();
+						if(pastRenderedArmor[i] != null && hud.comparePastRenderObj(pastRenderedArmor[i])){
+							double tick = mc.theWorld.getTotalWorldTime() % 72000 + event.renderTickTime;
+							hud.renderHUD(mc, tick - renderTicksArmor[i], armor);
+						}else{
+							hud.renderHUD(mc, 0.0D, armor);
+							pastRenderedArmor[i] = armor;
+							renderTicksArmor[i] = mc.theWorld.getTotalWorldTime() % 72000 + event.renderTickTime;
+						}
 					}else{
 						pastRenderedArmor[i] = null;
 					}
@@ -170,6 +184,8 @@ public class EventHandler {
 				RayTraceResult mop = UtilMethods.getMovingObjectPositionFromPlayer(mc.theWorld, mc.thePlayer, true);
 				if(mop != null && mop.sideHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK){
 					IHUDBlock renderObj = null;
+					TileEntity tile = mc.theWorld.getTileEntity(mop.getBlockPos());
+					IBlockState state = mc.theWorld.getBlockState(mop.getBlockPos());
 					if(mc.theWorld.getTileEntity(mop.getBlockPos()) instanceof IHUDBlock){
 						renderObj = (IHUDBlock) mc.theWorld.getTileEntity(mop.getBlockPos());
 					}else if(mc.theWorld.getBlockState(mop.getBlockPos()).getBlock() instanceof IHUDBlock){
@@ -197,13 +213,14 @@ public class EventHandler {
 			VertexBuffer vertexBuffer = Tessellator.getInstance().getBuffer();
 			FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
 
-			GlStateManager.pushAttrib();
+			//			GlStateManager.pushAttrib();
 			GlStateManager.enableBlend();
+			GL11.glEnable(GL11.GL_BLEND);
 			GlStateManager.disableLighting();
-			GlStateManager.disableCull();
-			GlStateManager.depthMask(true);
-			GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-			GlStateManager.blendFunc(770, 771);
+			//			GlStateManager.disableCull();
+			//			GlStateManager.depthMask(true);
+			//			GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+			//			GlStateManager.blendFunc(770, 771);
 			//			GL11.glEnable(GL11.GL_BLEND);
 			//			GL11.glDisable(GL11.GL_LIGHTING);
 			//			GL11.glDisable(GL11.GL_CULL_FACE);
@@ -231,9 +248,10 @@ public class EventHandler {
 					fontRenderer.drawString(msg.message, 30 + offsetX, 73 + msg.index * 10, 0x7cfc00, false);
 				}
 			}
-
-			GlStateManager.enableLighting();
-			GlStateManager.popAttrib();
+			//						GlStateManager.enableLighting();
+			//			GlStateManager.disableBlend();
+			//			GL11.glDisable(GL11.GL_BLEND);
+			//						GlStateManager.popAttrib();
 		}
 		pastRenderedObject = null;
 		pastMOP = null;

@@ -1,5 +1,7 @@
 package com.okina.fxcraft.tileentity;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
 import com.okina.fxcraft.client.IHUDBlock;
 import com.okina.fxcraft.utils.ColoredString;
@@ -8,6 +10,8 @@ import com.okina.fxcraft.utils.InfinitInteger;
 import com.okina.fxcraft.utils.RenderingHelper;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -66,7 +70,12 @@ public class EternalStorageFluidTileEntity extends TileEntity implements IFluidH
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		worldObj.markBlockForUpdate(pos);
+		List<EntityPlayer> list = getWorld().playerEntities;
+		for (EntityPlayer player : list){
+			if(player instanceof EntityPlayerMP){
+				((EntityPlayerMP) player).connection.sendPacket(getUpdatePacket());
+			}
+		}
 	}
 
 	@Override

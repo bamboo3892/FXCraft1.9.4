@@ -9,6 +9,7 @@ import dan200.computercraft.api.ComputerCraftAPI;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -73,6 +74,9 @@ public class FXCraft {
 
 	//Particle ID
 	public static final int PARTICLE_GUN = 0;
+
+	//Sound Event
+	public static SoundEvent SOUND_GUN;
 
 	//packet
 	public static SimpleNetworkWrapper packetDispatcher;

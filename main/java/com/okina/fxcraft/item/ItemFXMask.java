@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -22,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemFXMask extends ItemArmor implements IToolTipUser {
 
 	public ItemFXMask(ArmorMaterial material, int renderId) {
-		super(material, renderId, 0);
+		super(material, renderId, EntityEquipmentSlot.HEAD);
 		setMaxStackSize(1);
 		setCreativeTab(FXCraft.FXCraftCreativeTab);
 		setUnlocalizedName("fxcraft_fx_mask");
@@ -40,26 +39,13 @@ public class ItemFXMask extends ItemArmor implements IToolTipUser {
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
 		ModelFXMask armorModel = ClientProxy.modelFXMask;
 
-		armorModel.isSneak = entityLiving.isSneaking();
-		armorModel.isRiding = entityLiving.isRiding();
-		armorModel.isChild = entityLiving.isChild();
+		armorModel.isSneak = _default.isSneak;
+		armorModel.isRiding = _default.isRiding;
+		armorModel.isChild = _default.isChild;
+		armorModel.leftArmPose = _default.leftArmPose;
+		armorModel.rightArmPose = _default.rightArmPose;
+		armorModel.swingProgress = _default.swingProgress;
 
-		armorModel.heldItemRight = 0;
-		armorModel.aim = false;
-
-		EntityPlayer player = (EntityPlayer) entityLiving;
-		ItemStack held_item = player.getEquipmentInSlot(0);
-		if(held_item != null){
-			armorModel.heldItemRight = 1;
-			if(player.getItemInUseCount() > 0){
-				EnumAction enumaction = held_item.getItemUseAction();
-				if(enumaction == EnumAction.BOW){
-					armorModel.aimedBow = true;
-				}else if(enumaction == EnumAction.BLOCK){
-					armorModel.heldItemRight = 3;
-				}
-			}
-		}
 		return armorModel;
 	}
 

@@ -130,6 +130,15 @@ public class FXRateGetHelper {
 	public static Map<String, RateData> getRealtimeData() {
 		Map<String, RateData> map = Maps.newHashMap();
 		Calendar date = Calendar.getInstance();
+		if(date.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+			if(date.get(Calendar.HOUR_OF_DAY) >= 6){
+				return map;
+			}
+		}else if(date.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY){
+			if(date.get(Calendar.HOUR_OF_DAY) <= 5){
+				return map;
+			}
+		}
 		try{
 			URL url = new URL(YAHOO_REALTIME);
 			HttpURLConnection connection = null;

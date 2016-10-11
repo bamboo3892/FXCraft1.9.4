@@ -58,29 +58,29 @@ public class ParticleBase extends Particle {
 		updateTexture(ageScaled);
 		updateScale(ageScaled);
 
-		float f = this.particleTextureIndexX / 16.0F;
+		float f = particleTextureIndexX / 16.0F;
 		float f1 = f + 0.0624375F;
-		float f2 = this.particleTextureIndexY / 16.0F;
+		float f2 = particleTextureIndexY / 16.0F;
 		float f3 = f2 + 0.0624375F;
-		float f4 = 0.1F * this.particleScale;
+		float f4 = 0.1F * particleScale;
 
-		if(this.particleTexture != null){
-			f = this.particleTexture.getMinU();
-			f1 = this.particleTexture.getMaxU();
-			f2 = this.particleTexture.getMinV();
-			f3 = this.particleTexture.getMaxV();
+		if(particleTexture != null){
+			f = particleTexture.getMinU();
+			f1 = particleTexture.getMaxU();
+			f2 = particleTexture.getMinV();
+			f3 = particleTexture.getMaxV();
 		}
 
-		float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
-		float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
-		float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
-		int i = this.getBrightnessForRender(partialTicks);
+		float f5 = (float) (prevPosX + (posX - prevPosX) * partialTicks - interpPosX);
+		float f6 = (float) (prevPosY + (posY - prevPosY) * partialTicks - interpPosY);
+		float f7 = (float) (prevPosZ + (posZ - prevPosZ) * partialTicks - interpPosZ);
+		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		worldRendererIn.pos(f5 - p_180434_4_ * f4 - p_180434_7_ * f4, f6 - p_180434_5_ * f4, f7 - p_180434_6_ * f4 - p_180434_8_ * f4).tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-		worldRendererIn.pos(f5 - p_180434_4_ * f4 + p_180434_7_ * f4, f6 + p_180434_5_ * f4, f7 - p_180434_6_ * f4 + p_180434_8_ * f4).tex(f1, f2).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-		worldRendererIn.pos(f5 + p_180434_4_ * f4 + p_180434_7_ * f4, f6 + p_180434_5_ * f4, f7 + p_180434_6_ * f4 + p_180434_8_ * f4).tex(f, f2).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-		worldRendererIn.pos(f5 + p_180434_4_ * f4 - p_180434_7_ * f4, f6 - p_180434_5_ * f4, f7 + p_180434_6_ * f4 - p_180434_8_ * f4).tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
+		worldRendererIn.pos(f5 - p_180434_4_ * f4 - p_180434_7_ * f4, f6 - p_180434_5_ * f4, f7 - p_180434_6_ * f4 - p_180434_8_ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+		worldRendererIn.pos(f5 - p_180434_4_ * f4 + p_180434_7_ * f4, f6 + p_180434_5_ * f4, f7 - p_180434_6_ * f4 + p_180434_8_ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+		worldRendererIn.pos(f5 + p_180434_4_ * f4 + p_180434_7_ * f4, f6 + p_180434_5_ * f4, f7 + p_180434_6_ * f4 + p_180434_8_ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+		worldRendererIn.pos(f5 + p_180434_4_ * f4 - p_180434_7_ * f4, f6 - p_180434_5_ * f4, f7 + p_180434_6_ * f4 - p_180434_8_ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
 	}
 
 	@Override

@@ -27,7 +27,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.server.FMLServerHandler;
 
 public class AccountManegerTileEntity extends TileEntity implements IGuiTile, ISimpleTilePacketUser, IFXDealer {
 
@@ -238,7 +237,7 @@ public class AccountManegerTileEntity extends TileEntity implements IGuiTile, IS
 				if(loginAccount != null && !"".equals(accountName) && accountName.equals(loginAccount.name)){
 					int emerald = tag.getInteger("emerald");
 					String playerName = tag.getString("player");
-					EntityPlayerMP player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUsername(playerName);
+					EntityPlayerMP player = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUsername(playerName);
 					MinecraftServer s;
 					if(player == null){
 						FXCraft.proxy.sendPacketToClient(new SimpleTilePacket(this, PacketType.MESSAGE, "Invalid Player"));
@@ -263,7 +262,7 @@ public class AccountManegerTileEntity extends TileEntity implements IGuiTile, IS
 				if(loginAccount != null && !"".equals(accountName) && accountName.equals(loginAccount.name)){
 					FXDealLimit limit = FXDealLimit.valueOf(tag.getString("type"));
 					String playerName = tag.getString("player");
-					EntityPlayerMP player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUsername(playerName);
+					EntityPlayerMP player = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUsername(playerName);
 					if(player == null){
 						FXCraft.proxy.sendPacketToClient(new SimpleTilePacket(this, PacketType.MESSAGE, "Invalid Player"));
 					}else{

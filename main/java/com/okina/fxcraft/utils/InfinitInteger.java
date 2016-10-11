@@ -8,7 +8,7 @@ public class InfinitInteger implements Comparable<InfinitInteger> {
 	public final String value;
 
 	public InfinitInteger(long value) {
-		this.negative = value < 0;
+		negative = value < 0;
 		this.value = fromHexToChars(Long.toHexString(Math.abs(value)));
 	}
 
@@ -100,7 +100,7 @@ public class InfinitInteger implements Comparable<InfinitInteger> {
 	public String getHexString() {
 		StringBuilder str = new StringBuilder(negative ? "-" : "");
 		for (int i = 0; i < value.length(); i++){
-			String s = Integer.toHexString(((int) value.charAt(i)));
+			String s = Integer.toHexString((value.charAt(i)));
 			if(i != 0){
 				for (int j = 0; j < 4 - s.length(); j++){
 					str.append(0);
@@ -152,7 +152,7 @@ public class InfinitInteger implements Comparable<InfinitInteger> {
 	}
 
 	public static String addChars(char c1, char c2) {
-		int i = (int) c1 + (int) c2;
+		int i = c1 + c2;
 		if(i > 0xffff){
 			i -= 0x10000;
 			return (char) 1 + "" + (char) i;
@@ -182,7 +182,7 @@ public class InfinitInteger implements Comparable<InfinitInteger> {
 	public static String fromCharsToHex(String chars) {
 		StringBuilder str = new StringBuilder();
 		for (int i = 0; i < chars.length(); i++){
-			String s = Integer.toHexString(((int) chars.charAt(i)));
+			String s = Integer.toHexString((chars.charAt(i)));
 			if(i != 0){
 				for (int j = 0; j < 4 - s.length(); j++){
 					str.append(0);

@@ -23,9 +23,9 @@ public final class RenderingHelper {
 		GlStateManager.pushAttrib();
 		Minecraft.getMinecraft().getTextureManager().bindTexture(CHAR_TEXTURE);
 		GlStateManager.enableBlend();
-		GlStateManager.disableLighting();
-		GlStateManager.disableCull();
-		GlStateManager.depthMask(true);
+		//		GlStateManager.disableLighting();
+		//		GlStateManager.disableCull();
+		//		GlStateManager.depthMask(true);
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		//		GL11.glEnable(GL11.GL_BLEND);

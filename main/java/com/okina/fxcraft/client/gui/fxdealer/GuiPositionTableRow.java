@@ -30,7 +30,7 @@ public class GuiPositionTableRow extends GuiTableRow {
 	public GuiPositionTableRow(GuiPositionTableRow templete, FXPosition position) {
 		super(templete.sizeY, templete.rowSize, new String[templete.rowSize.length]);
 		this.position = Objects.requireNonNull(position);
-		this.fields = templete.fields;
+		fields = templete.fields;
 	}
 
 	@Override

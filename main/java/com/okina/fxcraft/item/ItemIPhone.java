@@ -38,6 +38,7 @@ public class ItemIPhone extends Item {
 				player.addChatComponentMessage(new TextComponentString("Connection Established!"));
 				return EnumActionResult.SUCCESS;
 			}
+			return EnumActionResult.PASS;
 		}
 		return EnumActionResult.FAIL;
 	}

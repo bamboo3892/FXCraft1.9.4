@@ -24,7 +24,7 @@ public class GuiRewardLabel extends GuiIconLabel {
 		this.id = id;
 		this.reward = reward;
 		this.dropShadow = dropShadow;
-		this.enabled = true;
+		enabled = true;
 	}
 
 	@Override

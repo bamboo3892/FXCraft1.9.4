@@ -183,8 +183,8 @@ public class CommonProxy {
 	protected void registerRenderer() {}
 
 	protected void registerPacket() {
-		packetDispatcher.registerMessage(SimpleTilePacketHandler.class, SimpleTilePacket.class, SIMPLETILE_PACKET_ID, Side.SERVER);
 		packetDispatcher.registerMessage(SimpleTileReplyPacketHandler.class, SimpleTilePacket.class, SIMPLETILE_REPLY_PACKET_ID, Side.CLIENT);
+		packetDispatcher.registerMessage(SimpleTilePacketHandler.class, SimpleTilePacket.class, SIMPLETILE_PACKET_ID, Side.SERVER);
 		packetDispatcher.registerMessage(CommandPacketHandler.class, CommandPacket.class, COMMAND_PACKET_ID, Side.CLIENT);
 	}
 

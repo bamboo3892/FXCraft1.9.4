@@ -28,6 +28,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
@@ -47,7 +48,7 @@ public class ItemCapitalistGun extends Item implements IToolTipUser, IHUDItem {
 
 	@Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean equipped) {
-		if(equipped && !world.isRemote && entity instanceof EntityPlayerMP){
+		if(equipped && !world.isRemote){
 			NBTTagCompound tag = itemStack.getTagCompound();
 			if(tag != null){
 				AccountInfo account = AccountHandler.instance.getAccountInfo(tag.getString("account"));
@@ -70,9 +71,9 @@ public class ItemCapitalistGun extends Item implements IToolTipUser, IHUDItem {
 				if(tag == null) tag = new NBTTagCompound();
 				tag.setString("account", account.name);
 				stack.setTagCompound(tag);
-				if(world.isRemote) player.addChatComponentMessage(new TextComponentString("Account Registered!"));
+				if(!world.isRemote) player.addChatComponentMessage(new TextComponentString("Account Registered!"));
 			}
-			return world.isRemote ? EnumActionResult.FAIL : EnumActionResult.SUCCESS;
+			return world.isRemote ? EnumActionResult.PASS : EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.FAIL;
 	}
@@ -81,14 +82,14 @@ public class ItemCapitalistGun extends Item implements IToolTipUser, IHUDItem {
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		NBTTagCompound tag = itemStackIn.getTagCompound();
 		if(tag == null || !tag.hasKey("account")){
-			if(worldIn.isRemote) playerIn.addChatComponentMessage(new TextComponentString("Not Account Registered"));
+			if(worldIn.isRemote) playerIn.addChatComponentMessage(new TextComponentString("Account Not Registered"));
 		}else{
 			String name = tag.getString("account");
 			if(!worldIn.isRemote && playerIn instanceof EntityPlayerMP){
 				AccountInfo account = AccountHandler.instance.getAccountInfo(name);
 				if(account != null){
 					if(AccountHandler.instance.decBalance(name, LotToShot)){
-						worldIn.playSoundAtEntity(playerIn, FXCraft.MODID + ":gun", 1f, 1f);
+						worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, FXCraft.SOUND_GUN, SoundCategory.PLAYERS, 1f, 1f);
 						Entity entity = UtilMethods.getCollidedEntityFromEntity(worldIn, playerIn, 20);
 						if(entity instanceof EntityLivingBase){
 							EntityLivingBase living = (EntityLivingBase) entity;

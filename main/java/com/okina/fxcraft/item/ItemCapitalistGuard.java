@@ -83,7 +83,7 @@ public class ItemCapitalistGuard extends ItemArmor implements IHUDItem, IHUDArmo
 				stack.setTagCompound(tag);
 				if(world.isRemote) player.addChatComponentMessage(new TextComponentString("Account Registered!"));
 			}
-			return world.isRemote ? EnumActionResult.FAIL : EnumActionResult.SUCCESS;
+			return world.isRemote ? EnumActionResult.PASS : EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.FAIL;
 	}

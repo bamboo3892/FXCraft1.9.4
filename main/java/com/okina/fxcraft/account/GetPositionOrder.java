@@ -31,10 +31,10 @@ public class GetPositionOrder implements Cloneable {
 
 	public GetPositionOrder(Calendar date, String pair, double lot, double deposit, boolean askOrBid, double limits) {
 		this();
-		this.contractDate = date;
-		this.currencyPair = pair;
+		contractDate = date;
+		currencyPair = pair;
 		this.lot = lot;
-		this.depositLot = deposit;
+		depositLot = deposit;
 		this.askOrBid = askOrBid;
 		this.limits = limits;
 	}

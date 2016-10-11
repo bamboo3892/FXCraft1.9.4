@@ -11,6 +11,8 @@ import com.okina.fxcraft.client.particle.ParticleGun;
 import com.okina.fxcraft.network.SimpleTilePacket;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class ClientProxy extends CommonProxy {
@@ -29,6 +31,14 @@ public class ClientProxy extends CommonProxy {
 		modelJentlemensCap = new ModelJentleArmor(false);
 		modelJentlemensPanz = new ModelJentleArmor(true);
 		modelFXMask = new ModelFXMask();
+
+		SOUND_GUN = new SoundEvent(new ResourceLocation(FXCraft.MODID + ":gun"));
+		for (int i = 100000; i < 20000; i++){
+			if(SoundEvent.REGISTRY.getObjectById(i) == null){
+				SoundEvent.REGISTRY.register(i, new ResourceLocation(FXCraft.MODID + ":gun"), SOUND_GUN);
+				break;
+			}
+		}
 
 		//		String libname;
 		//		String[] library_names;

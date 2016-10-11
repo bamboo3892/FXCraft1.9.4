@@ -22,12 +22,31 @@ import net.minecraft.world.World;
 public class UtilMethods {
 
 	public static RayTraceResult getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+		//		float f = playerIn.rotationPitch;
+		//		float f1 = playerIn.rotationYaw;
+		//		double d0 = playerIn.posX;
+		//		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
+		//		double d2 = playerIn.posZ;
+		//		Vec3d vec3 = new Vec3d(d0, d1, d2);
+		//		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
+		//		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
+		//		float f4 = -MathHelper.cos(-f * 0.017453292F);
+		//		float f5 = MathHelper.sin(-f * 0.017453292F);
+		//		float f6 = f3 * f4;
+		//		float f7 = f2 * f4;
+		//		double d3 = 5.0D;
+		//		if(playerIn instanceof EntityPlayerMP){
+		//			d3 = ((EntityPlayerMP) playerIn).interactionManager.getBlockReachDistance();
+		//		}
+		//		Vec3d vec31 = new Vec3d((double) f6 * d3, (double) f5 * d3, (double) f7 * d3);
+		//		return worldIn.rayTraceBlocks(vec3, vec31, useLiquids, !useLiquids, false);
+
 		float f = playerIn.rotationPitch;
 		float f1 = playerIn.rotationYaw;
 		double d0 = playerIn.posX;
-		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
+		double d1 = playerIn.posY + playerIn.getEyeHeight();
 		double d2 = playerIn.posZ;
-		Vec3d vec3 = new Vec3d(d0, d1, d2);
+		Vec3d vec3d = new Vec3d(d0, d1, d2);
 		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
 		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
 		float f4 = -MathHelper.cos(-f * 0.017453292F);
@@ -38,15 +57,15 @@ public class UtilMethods {
 		if(playerIn instanceof EntityPlayerMP){
 			d3 = ((EntityPlayerMP) playerIn).interactionManager.getBlockReachDistance();
 		}
-		Vec3d vec31 = new Vec3d((double) f6 * d3, (double) f5 * d3, (double) f7 * d3);
-		return worldIn.rayTraceBlocks(vec3, vec31, useLiquids, !useLiquids, false);
+		Vec3d vec3d1 = vec3d.addVector(f6 * d3, f5 * d3, f7 * d3);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
 	}
 
 	public static Entity getCollidedEntityFromEntity(World world, EntityPlayer player, double radius) {
 		float f1 = player.rotationPitch;
 		float f2 = player.rotationYaw;
 		double entityPosX = player.posX;
-		double entityPosY = player.posY + (double) player.getEyeHeight();
+		double entityPosY = player.posY + player.getEyeHeight();
 		double entityPosZ = player.posZ;
 		Vec3d startPos = new Vec3d(entityPosX, entityPosY, entityPosZ);
 		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);

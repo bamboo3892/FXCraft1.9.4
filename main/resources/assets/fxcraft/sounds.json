@@ -3,7 +3,7 @@
     "category": "master",
     "sounds": [
       {
-        "name": "clockpulser",
+        "name": "fxcraft:clockpulser",
         "weight": 1,
         "volume": 1,
         "pitch": 1,
@@ -15,7 +15,7 @@
     "category": "master",
     "sounds": [
       {
-        "name": "gun",
+        "name": "fxcraft:gun",
         "stream": false
       }
     ]

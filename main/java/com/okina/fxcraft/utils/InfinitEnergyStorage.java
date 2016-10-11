@@ -39,11 +39,11 @@ public class InfinitEnergyStorage implements IEnergyStorage {
 	}
 
 	public int getMaxReceive() {
-		return this.maxReceive;
+		return maxReceive;
 	}
 
 	public int getMaxExtract() {
-		return this.maxExtract;
+		return maxExtract;
 	}
 
 	public void setEnergyStored(InfinitInteger energy) {
@@ -53,6 +53,7 @@ public class InfinitEnergyStorage implements IEnergyStorage {
 		}
 	}
 
+	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		int energyReceived = Math.min(this.maxReceive, maxReceive);
 		if(!simulate){
@@ -61,18 +62,21 @@ public class InfinitEnergyStorage implements IEnergyStorage {
 		return energyReceived;
 	}
 
+	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		int energyExtracted = Math.min((int) this.energy.getLongValue(), Math.min(this.maxExtract, maxExtract));
+		int energyExtracted = Math.min((int) energy.getLongValue(), Math.min(this.maxExtract, maxExtract));
 		if(!simulate){
 			energy = energy.plus(-energyExtracted);
 		}
 		return energyExtracted;
 	}
 
+	@Override
 	public int getEnergyStored() {
 		return Math.min((int) energy.getLongValue(), Integer.MAX_VALUE >> 2);
 	}
 
+	@Override
 	public int getMaxEnergyStored() {
 		return Integer.MAX_VALUE;
 	}
@@ -85,7 +89,7 @@ public class InfinitEnergyStorage implements IEnergyStorage {
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		if(energy.getLongValue() < 0){
-			energy = energy.ZERO;
+			energy = InfinitInteger.ZERO;
 		}
 		nbt.setString("value", energy.value);
 		nbt.setBoolean("negative", energy.negative);

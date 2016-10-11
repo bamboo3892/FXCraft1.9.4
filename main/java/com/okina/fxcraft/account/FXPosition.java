@@ -37,11 +37,11 @@ public class FXPosition implements Cloneable {
 
 	public FXPosition(Calendar date, String pair, double lot, double deposit, double rate, boolean askOrBid) {
 		this();
-		this.contractDate = date;
-		this.currencyPair = pair;
+		contractDate = date;
+		currencyPair = pair;
 		this.lot = lot;
-		this.depositLot = deposit;
-		this.contractRate = rate;
+		depositLot = deposit;
+		contractRate = rate;
 		this.askOrBid = askOrBid;
 	}
 

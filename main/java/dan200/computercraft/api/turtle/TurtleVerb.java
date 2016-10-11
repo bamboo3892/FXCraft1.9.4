@@ -12,13 +12,12 @@ package dan200.computercraft.api.turtle;
  * @see ITurtleUpgrade
  * @see ITurtleUpgrade#useTool
  */
-public enum TurtleVerb
-{
+public enum TurtleVerb {
 	/**
 	 * The turtle called turtle.dig(), turtle.digUp() or turtle.digDown()
 	 */
 	Dig,
-	
+
 	/**
 	 * The turtle called turtle.attack(), turtle.attackUp() or turtle.attackDown()
 	 */

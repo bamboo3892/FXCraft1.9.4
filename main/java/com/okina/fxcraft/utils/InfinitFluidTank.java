@@ -17,18 +17,18 @@ public class InfinitFluidTank implements IFluidTank {
 	public InfinitFluidTank(FluidStack fluid) {
 		this.fluid = fluid;
 		if(fluid != null){
-			this.amount = new InfinitInteger(fluid.amount);
+			amount = new InfinitInteger(fluid.amount);
 		}else{
-			this.amount = InfinitInteger.ZERO;
+			amount = InfinitInteger.ZERO;
 		}
 	}
 
 	public void setFluid(FluidStack fluid) {
 		this.fluid = fluid;
 		if(fluid != null){
-			this.amount = new InfinitInteger(fluid.amount);
+			amount = new InfinitInteger(fluid.amount);
 		}else{
-			this.amount = InfinitInteger.ZERO;
+			amount = InfinitInteger.ZERO;
 		}
 	}
 

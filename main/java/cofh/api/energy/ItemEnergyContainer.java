@@ -47,12 +47,13 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 		return this;
 	}
 
+	@Override
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 		if(!container.hasTagCompound()){
 			container.setTagCompound(new NBTTagCompound());
 		}
 		int energy = container.getTagCompound().getInteger("Energy");
-		int energyReceived = Math.min(this.capacity - energy, Math.min(this.maxReceive, maxReceive));
+		int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
 		if(!simulate){
 			energy += energyReceived;
 			container.getTagCompound().setInteger("Energy", energy);
@@ -60,6 +61,7 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 		return energyReceived;
 	}
 
+	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		if((container.getTagCompound() == null) || (!container.getTagCompound().hasKey("Energy"))){
 			return 0;
@@ -73,6 +75,7 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 		return energyExtracted;
 	}
 
+	@Override
 	public int getEnergyStored(ItemStack container) {
 		if((container.getTagCompound() == null) || (!container.getTagCompound().hasKey("Energy"))){
 			return 0;
@@ -80,8 +83,9 @@ public class ItemEnergyContainer extends Item implements IEnergyContainerItem {
 		return container.getTagCompound().getInteger("Energy");
 	}
 
+	@Override
 	public int getMaxEnergyStored(ItemStack container) {
-		return this.capacity;
+		return capacity;
 	}
 
 }

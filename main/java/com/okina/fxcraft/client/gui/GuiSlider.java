@@ -45,7 +45,8 @@ public class GuiSlider extends GuiButton {
 			GlStateManager.blendFunc(770, 771);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
 
-			GlStateManager.disableTexture2D();
+			//			GlStateManager.disableTexture2D();
+			GlStateManager.enableTexture2D();
 			drawRect(xPosition, yPosition, xPosition + width, yPosition + height, 0x73000000);
 
 			if(k == 0){//disabled

@@ -15,9 +15,9 @@ public class Position {
 	}
 
 	public Position(BlockPos pos) {
-		this.x = pos.getX();
-		this.y = pos.getY();
-		this.z = pos.getZ();
+		x = pos.getX();
+		y = pos.getY();
+		z = pos.getZ();
 	}
 
 	public Position sum(int x, int y, int z) {
